@@ -1,5 +1,4 @@
-,Loans,,Grants,,Total,
-Location,Disbursements                                        (in millions),Recipients                                              (in thousands),Disbursements                                        (in millions),Recipients                                              (in thousands),Disbursements                                        (in millions),Recipients                                              (in thousands)
+location,loans_in_millions,loans_recipients_in_thousands,grants_in_millions,grant_recipients_in_thousands,total_in_millions,total_recipients_in_thousands
 Alabama," $1,358.9 ", 127.8 , $462.3 , 121.4 ," $1,821.8 ", 180.1 
 Alaska, $138.6 , 13.2 , $34.9 , 10.3 , $173.6 , 18.2 
 Arizona," $1,710.8 ", 153.6 , $577.5 , 156.2 ," $2,289.3 ", 230.0 
