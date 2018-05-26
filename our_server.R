@@ -31,23 +31,28 @@ colnames(by_school_long) <- c(colnames(by_school_long[1:6]), "Recipients", "Tota
 
 server <- function(input, output, session) {
   output$plot <- renderPlot({
-      fed_aid_data <- by_school_long %>% 
-        filter(loan_type == input$loan_type) %>% 
-        group_by(school_type) %>%
-        summarize(
-          total_num = sum(as.numeric(Recipients), na.rm = TRUE),
-          total_amt = sum(as.numeric(`Total Amount`), na.rm = TRUE)
-          
-        )
-     
-      
-      aid_plot <- ggplot(data = fed_aid_data) +
-        geom_bar(mapping = aes(x = school_type, fill = school_type))
-      aid_plot
-      
-    })
+    fed_aid_data <- by_school_long %>% 
+      filter(loan_type == input$loan_type) %>% 
+      group_by(school_type) %>%
+      summarize(
+        total_num = sum(as.numeric(Recipients), na.rm = TRUE),
+        total_amt = sum(as.numeric(`Total Amount`), na.rm = TRUE)
+        
+      )
+    
+    if(input$measure == 'Recipients') {
+      fed_aid_data <- rename(fed_aid_data, y.measure = total_num)
+    } else {
+      fed_aid_data <- rename(fed_aid_data, y.measure = total_amt)
+    }
+    
+    
+    aid_plot <- ggplot(data = fed_aid_data) +
+      geom_bar(mapping = aes(x = school_type, y = y.measure, fill = school_type), stat = 'identity')
+    aid_plot
+    
+  })
 }
-
 
 
 
