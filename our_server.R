@@ -1,7 +1,4 @@
-library(dplyr)
-library(ggplot2)
-library(shiny)
-library(rsconnect)
+
 
 # setwd("C:/Users/ddami/Desktop/Info Homework/MicRo-And-Soft")
 
@@ -48,8 +45,18 @@ server <- function(input, output, session) {
     
     
     aid_plot <- ggplot(data = fed_aid_data) +
-      geom_bar(mapping = aes(x = school_type, y = y.measure, fill = school_type), stat = 'identity')
-    aid_plot
+      geom_bar(mapping = aes(x = school_type, y = y.measure, fill = school_type), stat = 'identity') +
+    labs(
+      title = paste(input$measure, "by School Type, 2015 Q1"),
+      x = "School Type",
+      y = paste(input$measure),
+      fill = "School Type"
+      )
+   
+       aid_plot
+    
+      
+    
     
   })
 }
