@@ -6,7 +6,7 @@ ui <- fluidPage(
         sidebarPanel(
           selectInput("loan_type", label = "Direct Loan Type", choices = unique(by_school_long$loan_type)),
           radioButtons("measure", label = "Measure", choices = colnames(by_school_long[7:8]))
-    
+          
         ),
   
     mainPanel(plotOutput("plot"),
@@ -15,6 +15,16 @@ ui <- fluidPage(
                 loaned in financial aid. The other menu will allow you to selet the specific type of loan given for each
                 school type.")))),
   
+    tabPanel("roy",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("x_var", label = "X Variable", choices = colnames(merged_15_16[8:11]))
+               ),
+               mainPanel(
+                 plotlyOutput("roy_plot")
+                 ))),
+
+                 
   tabPanel("grant",
     sidebarLayout(
       sidebarPanel(
