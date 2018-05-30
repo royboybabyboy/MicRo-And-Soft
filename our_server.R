@@ -53,6 +53,10 @@ merged_15_16$HIGHDEG <- as.numeric(merged_15_16$HIGHDEG)
 #colnames(merged_15_16) <- c(colnames(merged_15_16[1:7]), "In State Tuition","Out of State Tuition", colnames(merged_15_16[10]), "Loan Ever")
 #colnames(merge)
 
+names(merged_15_16)[8] <- paste("In State Tuition")
+names(merged_15_16)[9] <- paste("Out of State Tuition")
+names(merged_15_16)[11] <- paste("Loan Ever")
+
 #######################################################################################
 ############################  END OF ROY    ###############################################
 #######################################################################################
@@ -108,36 +112,36 @@ server <- function(input, output, session) {
     })
   
   output$roy_plot <- renderPlotly({
-    in_st_debt <- plot_ly(merged_15_16, x = ~TUITIONFEE_IN, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
-                          type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
-                                                                            "$<br>In State Tuition: ", TUITIONFEE_IN, '$<br>Median Graduation Debt: $', 
-                                                                            GRAD_DEBT_MDN)) %>% 
+    in_st_debt <- plot_ly(merged_15_16, x = ~`In State Tuition`, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
+                  type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
+                  "$<br>In State Tuition: ", `In State Tuition`, '$<br>Median Graduation Debt: $', 
+                  GRAD_DEBT_MDN)) %>% 
       
       layout(title = "In State Tuition vs Median Graduation Debt",
              xaxis = list(title="In State Tuition ($)"), 
              yaxis = list(title="Median Graduation Debt"))
     
-    out_st_debt <- plot_ly(merged_15_16, x = ~TUITIONFEE_OUT, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
-                           type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
-                                                                             "$<br>In State Tuition: ", TUITIONFEE_OUT, '$<br>Median Graduation Debt: $', 
-                                                                             GRAD_DEBT_MDN)) %>% 
+    out_st_debt <- plot_ly(merged_15_16, x = ~`Out of State Tuition`, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
+            type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
+            "$<br>In State Tuition: ", `Out of State Tuition` , '$<br>Median Graduation Debt: $', 
+            GRAD_DEBT_MDN)) %>% 
       
       layout(title = "Out of State Tuition vs Median Graduation Debt",
              xaxis = list(title="Out of State Tuition ($)"), 
              yaxis = list(title="Median Graduation Debt"))
     
-    loan_ever_debt <- plot_ly(merged_15_16, x = ~LOAN_EVER, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
-                              type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
-                                                                                "$<br>In State Tuition: ", TUITIONFEE_OUT, '$<br>Median Graduation Debt: $', 
-                                                                                GRAD_DEBT_MDN)) %>% 
+    loan_ever_debt <- plot_ly(merged_15_16, x = ~`Loan Ever`, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
+              type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
+              "$<br>In State Tuition: ", `Loan Ever`, '$<br>Median Graduation Debt: $', 
+              GRAD_DEBT_MDN)) %>% 
       
       layout(title = "Percent of People Ever to Have a Loan vs Median Graduation Debt",
              xaxis = list(title="Percent of People to Ever Have a Loan"), 
              yaxis = list(title="Median Graduation Debt"))
     
-    if(input$x_var == "TUITIONFEE_IN") {
+    if(input$x_var == "In State Tuition") {
       in_st_debt
-    } else if (input$x_var == "TUITIONFEE_OUT") {
+    } else if (input$x_var == "Out of State Tuition") {
       out_st_debt
     }
     else {
