@@ -21,6 +21,43 @@ by_school_long$loan_type <- ifelse(by_school_long$loan_type=="parent_plus_num","
 by_school_long$loan_type <- ifelse(by_school_long$loan_type=="grad_plus_num","Graduate Plus Loan",by_school_long$loan_type)
 colnames(by_school_long) <- c(colnames(by_school_long[1:6]), "Recipients", "Total Amount")
 
+#######################################################################################
+###############################  ROY    ###############################################
+#######################################################################################
+
+merged_15_16 <- read.csv("data/MERGED2015_16_PP.csv", stringsAsFactors = FALSE)
+
+
+merged_15_16 <- select(merged_15_16, HIGHDEG, PREDDEG, ADM_RATE, CONTROL, STABBR, INSTNM, CITY, STABBR, TUITIONFEE_IN, TUITIONFEE_OUT, GRAD_DEBT_MDN, LOAN_EVER)
+
+merged_15_16 <- filter(merged_15_16, TUITIONFEE_IN != "PrivacySuppressed")%>% 
+  filter(TUITIONFEE_OUT != "PrivacySuppressed") %>% 
+  filter(GRAD_DEBT_MDN != "PrivacySuppressed") %>% 
+  filter(LOAN_EVER  != "PrivacySuppressed") %>% 
+  #  filter(GRAD_DEBT_MDN_SUPP  != "PrivacySuppressed") %>% 
+  filter(TUITIONFEE_OUT != "NULL") %>% 
+  filter(GRAD_DEBT_MDN != "NULL") %>% 
+  filter(LOAN_EVER  != "NULL") %>% 
+  #  filter(GRAD_DEBT_MDN_SUPP  != "NULL") %>% 
+  filter(TUITIONFEE_IN  != "NULL") %>% 
+  filter(PREDDEG >= 3)
+
+merged_15_16$TUITIONFEE_IN <- as.numeric(merged_15_16$TUITIONFEE_IN)
+merged_15_16$TUITIONFEE_OUT <- as.numeric(merged_15_16$TUITIONFEE_OUT)
+merged_15_16$GRAD_DEBT_MDN <- as.numeric(merged_15_16$GRAD_DEBT_MDN)
+merged_15_16$LOAN_EVER <- as.numeric(merged_15_16$LOAN_EVER)
+#merged_15_16$GRAD_DEBT_MDN_SUPP <- as.numeric(merged_15_16$GRAD_DEBT_MDN_SUPP)
+merged_15_16$ADM_RATE <- as.numeric(merged_15_16$ADM_RATE)
+merged_15_16$HIGHDEG <- as.numeric(merged_15_16$HIGHDEG)
+
+#colnames(merged_15_16) <- c(colnames(merged_15_16[1:7]), "In State Tuition","Out of State Tuition", colnames(merged_15_16[10]), "Loan Ever")
+#colnames(merge)
+
+#######################################################################################
+############################  END OF ROY    ###############################################
+#######################################################################################
+
+
 
 comma_replaced <- gsub(",", "", by_location$grants_in_millions)
 
@@ -69,6 +106,45 @@ server <- function(input, output, session) {
 
       
     })
+  
+  output$roy_plot <- renderPlotly({
+    in_st_debt <- plot_ly(merged_15_16, x = ~TUITIONFEE_IN, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
+                          type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
+                                                                            "$<br>In State Tuition: ", TUITIONFEE_IN, '$<br>Median Graduation Debt: $', 
+                                                                            GRAD_DEBT_MDN)) %>% 
+      
+      layout(title = "In State Tuition vs Median Graduation Debt",
+             xaxis = list(title="In State Tuition ($)"), 
+             yaxis = list(title="Median Graduation Debt"))
+    
+    out_st_debt <- plot_ly(merged_15_16, x = ~TUITIONFEE_OUT, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
+                           type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
+                                                                             "$<br>In State Tuition: ", TUITIONFEE_OUT, '$<br>Median Graduation Debt: $', 
+                                                                             GRAD_DEBT_MDN)) %>% 
+      
+      layout(title = "Out of State Tuition vs Median Graduation Debt",
+             xaxis = list(title="Out of State Tuition ($)"), 
+             yaxis = list(title="Median Graduation Debt"))
+    
+    loan_ever_debt <- plot_ly(merged_15_16, x = ~LOAN_EVER, y = ~GRAD_DEBT_MDN, color = ~HIGHDEG, 
+                              type = "scatter", mode = "markers", text = ~paste(INSTNM, STABBR,
+                                                                                "$<br>In State Tuition: ", TUITIONFEE_OUT, '$<br>Median Graduation Debt: $', 
+                                                                                GRAD_DEBT_MDN)) %>% 
+      
+      layout(title = "Percent of People Ever to Have a Loan vs Median Graduation Debt",
+             xaxis = list(title="Percent of People to Ever Have a Loan"), 
+             yaxis = list(title="Median Graduation Debt"))
+    
+    if(input$x_var == "TUITIONFEE_IN") {
+      in_st_debt
+    } else if (input$x_var == "TUITIONFEE_OUT") {
+      out_st_debt
+    }
+    else {
+      loan_ever_debt
+    }
+    
+  }) 
   
   filtered <- reactive({
     
