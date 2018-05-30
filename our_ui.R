@@ -15,10 +15,10 @@ ui <- fluidPage(
                 loaned in financial aid. The other menu will allow you to selet the specific type of loan given for each
                 school type.")))),
   
-    tabPanel("roy",
+    tabPanel("Median Debt Data by School VS.",
              sidebarLayout(
                sidebarPanel(
-                 selectInput("x_var", label = "X Variable", choices = colnames(merged_15_16[8:11]))
+                 selectInput("x_var", label = "X Variable", choices = list("In State Tuition", "Out of State Tuition", "Loan Ever"))
                ),
                mainPanel(
                  plotlyOutput("roy_plot")
