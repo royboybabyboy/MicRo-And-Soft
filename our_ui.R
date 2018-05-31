@@ -107,6 +107,26 @@ ui <- fluidPage(
       )
     )
     ),
-  tabPanel("Pooja Data")
-  )
-)
+  tabPanel("School Data",
+           
+           sidebarLayout(
+             sidebarPanel(
+               
+               selectInput('state_name', "Select a State to filter:", unique(by_school$state))
+             ),
+             mainPanel(
+               plotOutput("schoolplot"),
+               h1("Plot on Different Universities in a state vs Debt Amount for the year 2015"),
+               p("The plot above shows the relationship between piblic universities and private univerties. As you can see, private universities have a greater amount of debt 
+                 than compared to public universities. This may be because private universities have a higher tuition cost or these universities could be 'for profit universities, 
+                 which charge a lot more in tuition than compared to public universities!"),
+               br(),
+               p("If we further investigate the data from the dataset that has been used, a sizable percentage of for-profit colleges get between 80 percent and 90 percent of their revenue from federal financial aid."),
+               p("A noticebale pattern is that small colleges or small professional universities have almost
+                 similar percentage of student debt loans borrwed in proportion to their size compared to big universities.
+                 One explanation could be that, Withdrawing from a school, especially if a low- or no-income student has withdrawn with a failing grade, could deprive the student of the ability of further attendance by disqualifying the student of necessary financial aid."),
+              p("In recent years, tuition has been rising due to the cuts of government funding in education. As an example, more specifically, the University of Pittsburgh has had an increase in tuition of 4.2 percent for the academic school year of 2015. In recent weeks, the U.S. Department of Education ranked Pitt as the most expensive public university for tuition and fees, just ahead of Penn State University, which this past year totaled $16,240 in the arts and science school.")
+               )
+             
+           ))
+))

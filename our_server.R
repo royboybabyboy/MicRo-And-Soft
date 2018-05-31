@@ -21,6 +21,8 @@ by_school_long$loan_type <- ifelse(by_school_long$loan_type=="parent_plus_num","
 by_school_long$loan_type <- ifelse(by_school_long$loan_type=="grad_plus_num","Graduate Plus Loan",by_school_long$loan_type)
 colnames(by_school_long) <- c(colnames(by_school_long[1:6]), "Recipients", "Total Amount")
 
+
+
 #######################################################################################
 ###############################  ROY    ###############################################
 #######################################################################################
@@ -186,4 +188,27 @@ server <- function(input, output, session) {
       })
     })
   
+    school_reactive <-  reactive({
+      # Filters through the data based on user inputs 
+      filtered_data <- by_school %>%
+        filter(state == input$state_name) %>%
+        select(school, dl_sub_dollars) 
+      x <- list(title = "School Names")
+      y <- list(title = "Debt Amounts")
+      # Generates plot based on the data and changes color if the calories are greater than 3
+      return(filtered_data)
+    })  
+    
+
+      output$schoolplot <- renderPlot({
+        #filtered_data <- school_data()
+        req_data <- school_reactive()
+        gg <- ggplot(data = req_data) +
+          geom_bar(mapping = aes(x=req_data$school, y = req_data$dl_sub_dollars), stat = "identity",
+                   na.rm = TRUE) +
+          coord_flip() +
+          labs(x = "Debt Amounts", y = "Universities", title= "Universities in the State vs Debt Amounts")
+        
+        return(gg)
+      })
 }
