@@ -1,10 +1,18 @@
 
 ui <- fluidPage(
   navbarPage('Education Financial Data',
-    tabPanel("Home", mainPanel(
-      p(strong("Loan Data:"), "The first visualization uses a data frame from the official student aid website, studentaid.ed.gov, from the first quarter of 2015. The data contains a breakdown of recipient and total amount data for five different types of federal loans.
-        That data is grouped into school type, and then presented in an interactive bar chart that allows the user to select both the loan type they would like to examine as well as whether they would
-        like to view the numbers for total recipients or total dollar amount for that loan type.")
+    tabPanel("Home", 
+             mainPanel(
+               h1("Educational Financial Data"),
+                h2("Data Sets"),
+                  h3("Student Aid"),
+                     p(strong("Loan Data:"), "The Loan Data and the Grant Data visualization use a data frame from the official student aid website, studentaid.ed.gov, from the first quarter of 2015. The data contains a breakdown of recipient and total amount data for five different types of federal loans.
+                        That data is grouped into school type, and then presented in an interactive bar chart that allows the user to select both the loan type they would like to examine as well as whether they would
+                        like to view the numbers for total recipients or total dollar amount for that loan type."),
+                  h3("Student Debt"),
+                      p(strong("Student Debt Data:"), "The Debt Data visualization utilizes a data frame from the officialCollege Score card Website at  collegescorecard.ed.gov/data/, from the first the years spanning 2015 to 2016. The data contains a breakdown of total debt values by institution as well as many
+                        of the pertinent variables to compare them too. For instance, Tuition for Universities both In State and Out of State and the Loan Rate among the student population. A student interested in their graduation debt amount should look into this graph as it depicts the general relationship between 
+                        their school choice and their expected graduation debt. That being said, we found a unique set of conclusions to which a singualr decision should not be based on our analysis, rather, as one component to a complicated life decision..")
       
     )
     ),
