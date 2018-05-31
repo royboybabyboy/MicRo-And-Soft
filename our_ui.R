@@ -45,7 +45,7 @@ ui <- fluidPage(
                  em(p("1. What is the relationship between In State Tuition and the Median Debt Graduation Debt?")),
                  em(p("2. What is the relationship between the Out of State Tuiition and Median Debt Graduation Debt and how does that compare to In State?")),
                  em(p("3. Of these two characteristics, what is the relationship between people who have taken out a Loan Ever and the Median Graduation Debt")),
-                 strong(h2("Hypothesis")),
+                 strong(h2("Hypotheses")),
                  p("1. The Median Graduation Debt would be high among those who are non-residents and pay higher tuitions."),
                  p("2. Schools that average higher levels of students that take out loans will have a higher median of Graduation Debt"),
                  strong(h2("Conclusions")),
@@ -76,7 +76,26 @@ ui <- fluidPage(
         
         plotOutput("colby_plot", click = "plot_click"),
         
-        verbatimTextOutput("info")
+        verbatimTextOutput("info"),
+        strong(h1("Total Grant Data")),
+        p("The plot above shows the relationship between grant recipients and the dollar amount of grants dispersed in each state's universities during the 2015
+          fall quarter. The sliders can be used to narrow down the data in order to see more individual states that might be overlapping. Also, if you click on the 
+          individual points it'll show you which state the point corresponds to. If the points are overlapping, it'll show all the states that you clicked on.This graph 
+          helps answer questions such as:" ),
+        em(p("1. What is the relationship between amount of grant recipients and amount of grants dispersed?")),
+        em(p("2. What states have the highest grant amounts as well as recipients?")),
+        strong(h2("Hypotheses")),
+        p("1. There will be a string correlation between grant recipients and amount of grants dispersed."),
+        p("2. States with higher populations will have significantly more grant recipients as well as amount of grants dispersed."),
+        strong(h2("Conclusions")),
+        p("1. The correlation between is, as predicted, very strong. The correlation is practically linear. This seems obvious but it's still an important conclusion."),
+        p("2. Our second conclusion from this graph is that, for the most part, a state with a higher population than another also has higher grant recipients as well as
+         higher total grants dispersed. There are some states, such as New York, that have slightly higher amounts of grants/recipients but have a smaller population than 
+         other states. This is because there are significantly more universities in New York than there are in Florida, which is also usually the case where other states
+          have higher amounts of grants/recipients but have a smaller population.")
+        
+      
+  
       )
     )
     ),
