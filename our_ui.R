@@ -1,7 +1,7 @@
 
 ui <- fluidPage(
-  navbarPage('something',
-    tabPanel("loan",
+  navbarPage('Education Financial Data',
+    tabPanel("Loan Data",
       sidebarLayout(
         sidebarPanel(
           selectInput("loan_type", label = "Direct Loan Type", choices = unique(by_school_long$loan_type)),
@@ -15,7 +15,7 @@ ui <- fluidPage(
                 loaned in financial aid. The other menu will allow you to selet the specific type of loan given for each
                 school type.")))),
   
-    tabPanel("Median Debt Data by School VS.",
+    tabPanel("Debt Data",
              sidebarLayout(
                sidebarPanel(
                  selectInput("x_var", label = "X Variable", choices = list("In State Tuition", "Out of State Tuition", "Loan Ever"))
@@ -25,9 +25,9 @@ ui <- fluidPage(
                  strong(h1("Median Graduation Debt Data")),
                   p("The plot above showes the relationship betweenthe Median Graduation Debt and the resepective X variable choosen. In this section we are concerned about the relationship
                    the two varibales and to answer three questions."),
-                 em(p("What is the relationship between In State Tuition and the Median Debt Graduation Debt?")),
-                 em(p("What is the relationship between the Out of State Tuiition and Median Debt Graduation Debt and how does that compare to In State?")),
-                 em(p("Of these two characteristics, what is the relationship between people who have taken out a Loan Ever and the Median Graduation Debt")),
+                 em(p("1. What is the relationship between In State Tuition and the Median Debt Graduation Debt?")),
+                 em(p("2. What is the relationship between the Out of State Tuiition and Median Debt Graduation Debt and how does that compare to In State?")),
+                 em(p("3. Of these two characteristics, what is the relationship between people who have taken out a Loan Ever and the Median Graduation Debt")),
                  strong(h2("Hypothesis")),
                  p("1. The Median Graduation Debt would be high among those who are non-residents and pay higher tuitions."),
                  p("2. Schools that average higher levels of students that take out loans will have a higher median of Graduation Debt"),
@@ -45,7 +45,7 @@ ui <- fluidPage(
                  ))),
 
                  
-  tabPanel("grant",
+  tabPanel("Grant Data",
     sidebarLayout(
       sidebarPanel(
         
@@ -62,6 +62,7 @@ ui <- fluidPage(
         verbatimTextOutput("info")
       )
     )
-    )
+    ),
+  tabPanel("Pooja Data")
   )
 )

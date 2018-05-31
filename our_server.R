@@ -103,7 +103,10 @@ server <- function(input, output, session) {
     
     
     aid_plot <- ggplot(data = fed_aid_data) +
-      geom_bar(mapping = aes(x = school_type, y = y.measure, fill = school_type), stat = 'identity')
+      geom_bar(mapping = aes(x = school_type, y = y.measure, fill = school_type), stat = 'identity') +
+      labs(title = paste(input$measure, "by School Type"),
+           x = "School Type",
+           y = paste(input$measure))
     
     aid_plot
     
@@ -167,7 +170,9 @@ server <- function(input, output, session) {
       
       p <- ggplot(data = filtered(), mapping = aes(x = grant_recipients_in_thousands, y = grants_in_millions)) +
         
-        geom_point()
+        geom_point() +
+        
+        labs(x = "Grant Recipients in Thousands", y = "Grants Dispersed in Millions")
       
       
       return(p)
