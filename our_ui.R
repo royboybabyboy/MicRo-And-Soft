@@ -10,10 +10,20 @@ ui <- fluidPage(
         ),
   
     mainPanel(plotOutput("plot"),
-              p("The above plot gives introductory stats concerning the total amount of each type of federal student aid.
-                Use the two dropdown menus to select whther the bar chart will measure total recipients or total dollars
-                loaned in financial aid. The other menu will allow you to selet the specific type of loan given for each
-                school type.")))),
+              strong(h2("Loan Types")),
+              p(strong("Subsidized:"), "Available to students in need, the US Department of Education pays the interest on the amount the individual school determines is necessary for the financial aid package."),
+              p(strong("Undergraduate Unsubsidized:"), "Loans dispensed in the amount determined by the school to be adequate for attendance, these loans require the undergraduate borrower to pay the interest when the period of forbearance (time as a student) expires."),
+              p(strong("Graduate Unsubsidized:"), "Same as undergraduate unsubsidized lonas, but for graduate students instead."),
+              p(strong("Parent Plus:"), "Loans taken by a parent from the Department of Education on behalf of their student to cover excess education expenses not covered by other financial aid. The borrower pays the interest and must not have an adverse credit history."),
+              p(strong("Graduate Plus:"), "Same as Parent Plus loans, but taken out by a graduate student instead of the parent of a student."),
+              
+              em(p("Question 1: How significant is the gap between public school aid and aid to other types of school?")),
+              em(p("Question 2: Is there a particular type of loan that is seen more often in another school type than it is in pubblic schools?")),
+              p("Although most of the data in the plot supported our expectations of public schools recieving
+                the majority of funds from all types of loans, our group was surprised to see a discrepancy when graduate loans were considered.
+                In both unsubsidized graduate loans and graduate plus loans, private saw a large jump in recipients and total amount
+                as compared to public schools.  Likewise, it seemed that the other types of schools were more likely to have students
+                recieving aid for graduate students than they were for students in their undergraduate program.")))),
   
     tabPanel("Debt Data",
              sidebarLayout(
@@ -23,7 +33,7 @@ ui <- fluidPage(
                mainPanel(
                  plotlyOutput("roy_plot"),
                  strong(h1("Median Graduation Debt Data")),
-                  p("The plot above showes the relationship betweenthe Median Graduation Debt and the resepective X variable choosen. In this section we are concerned about the relationship
+                  p("The plot above showes the relationship between the Median Graduation Debt and the resepective X variable choosen. In this section we are concerned about the relationship
                    the two varibales and to answer three questions."),
                  em(p("1. What is the relationship between In State Tuition and the Median Debt Graduation Debt?")),
                  em(p("2. What is the relationship between the Out of State Tuiition and Median Debt Graduation Debt and how does that compare to In State?")),
