@@ -1,6 +1,13 @@
 
 ui <- fluidPage(
   navbarPage('Education Financial Data',
+    tabPanel("Home", mainPanel(
+      p(strong("Loan Data:"), "The first visualization uses a data frame from the official student aid website, studentaid.ed.gov, from the first quarter of 2015. The data contains a breakdown of recipient and total amount data for five different types of federal loans.
+        That data is grouped into school type, and then presented in an interactive bar chart that allows the user to select both the loan type they would like to examine as well as whether they would
+        like to view the numbers for total recipients or total dollar amount for that loan type.")
+      
+    )
+    ),
     tabPanel("Loan Data",
       sidebarLayout(
         sidebarPanel(
